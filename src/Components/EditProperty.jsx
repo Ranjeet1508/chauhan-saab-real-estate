@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   FormControl,
   FormLabel,
   Input,
-  Select,
   Stack,
   Modal,
   ModalOverlay,
@@ -13,28 +12,36 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
-  useDisclosure,
   Box,
   Text,
   Alert,
   AlertIcon,
   AlertTitle,
-  AlertDescription
+  AlertDescription,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 
-const AddProperty = ({ isOpen, onClose }) => {
+const EditProperty = ({ isOpen, onClose, propertyData, onEdit }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const [successMessage, setSuccessMessage] = useState('');
 
+  useEffect(() => {
+    // Reset form with current property data when modal opens
+    if (isOpen) {
+      reset(propertyData);
+    }
+  }, [isOpen, propertyData, reset]);
+
   const onSubmit = (data) => {
     console.log(data); // Handle the form submission logic here
-    setSuccessMessage('Property added successfully!');
+    onEdit(data); // Pass the edited data to the onEdit function
+    setSuccessMessage('Property updated successfully!');
     onClose(); // Close the modal after submission
   };
 
@@ -43,7 +50,7 @@ const AddProperty = ({ isOpen, onClose }) => {
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add Property</ModalHeader>
+          <ModalHeader>Edit Property</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             {successMessage && (
@@ -87,7 +94,7 @@ const AddProperty = ({ isOpen, onClose }) => {
                 <FormControl isRequired>
                   <FormLabel>Price Range</FormLabel>
                   <Input
-                    type="number"
+                    type="string"
                     placeholder="Enter price range"
                     {...register('priceRange', { required: 'Price range is required' })}
                   />
@@ -104,7 +111,7 @@ const AddProperty = ({ isOpen, onClose }) => {
                   <Input
                     type="tel"
                     placeholder="Broker's contact number"
-                    {...register('brokerContact', { 
+                    {...register('brokerContact', {
                       required: 'Broker contact is required',
                       pattern: {
                         value: /^[0-9]{10}$/, // Ensure 10 digits for the contact number
@@ -136,4 +143,4 @@ const AddProperty = ({ isOpen, onClose }) => {
   );
 };
 
-export default AddProperty;
+export default EditProperty;

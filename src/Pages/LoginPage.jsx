@@ -35,10 +35,10 @@ const LoginPage = () => {
         <Box bg='gray.50' h={'90vh'}>
             <Box maxW="lg" mx="auto" py={8} px={4}>
                 <Stack spacing={6} align="center">
-                    {/* <Heading as="h1" size={useBreakpointValue({ base: 'xl', md: '2xl' })}>
-                    Login
-                </Heading> */}
-                    <Box mt={10} minW={'30vw'} minH={'50vh'} p={6} borderWidth={1} borderRadius="md" boxShadow="md">
+                    <Text fontSize={'2xl'} mt={4}>
+                        This page is only for Admin                        
+                    </Text>
+                    <Box mt={6} minW={'30vw'} minH={'50vh'} p={6} borderWidth={1} borderRadius="md" boxShadow="md">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <Stack spacing={4}>
                                 <FormControl isRequired>
@@ -65,21 +65,21 @@ const LoginPage = () => {
                                     Login
                                 </Button>
 
-                                <Text mt={4}>
+                                {/* <Text mt={4}>
                                     Don't have an account?{' '}
                                     <ChakraLink as={RouterLink} to="/signup" color="teal.500" fontWeight="bold">
                                         sign up
                                     </ChakraLink>
-                                </Text>
+                                </Text> */}
                             </Stack>
                         </form>
                     </Box>
-                    <Text mt={4}>
+                    {/* <Text mt={4}>
                         forgot password?{' '}
                         <ChakraLink as={RouterLink} to="/forgot-password" color="teal.500" fontWeight="bold">
                             click here
                         </ChakraLink>
-                    </Text>
+                    </Text> */}
                 </Stack>
 
                 {isOpen && (

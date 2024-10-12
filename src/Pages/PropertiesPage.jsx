@@ -1,103 +1,87 @@
 import React from 'react';
 import {
   Box,
-  Flex,
   Grid,
-  Heading,
   Button,
   useDisclosure,
-  Center
+  Center,
+  useBreakpointValue
 } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom'; // Importing RouterLink
 import PropertyCard from '../Components/PropertyCard';
 import AddProperty from '../Components/AddProperty';
-import image1 from '../Assets/real-estate-1.jpg';
-import image2 from '../Assets/real-estate-2.jpg';
-import image3 from '../Assets/real-estate-3.jpg'
 
 // Sample properties array
 const properties = [
   {
     id: 1,
-    homeImage: image1,
-    roomImage: image2,
-    title: 'Luxury Villa in Beverly Hills',
-    price: '$5,200,000',
-    description: 'A beautiful villa with stunning views of the city.',
+    location: 'Unnao',
+    priceRange: '₹5 Lakh - ₹10 Lakh',
+    brokerContact: '+91 9876543210',
+    description: 'Residential plot available at an affordable price in Unnao. Contact the broker for more details.',
   },
   {
     id: 2,
-    homeImage: image2,
-    roomImage: image3,
-    title: 'Modern Apartment in New York',
-    price: '$2,300,000',
-    description: 'A sleek and modern apartment in the heart of the city.',
+    location: 'Lucknow',
+    priceRange: '₹25 Lakh - ₹40 Lakh',
+    brokerContact: '+91 8765432109',
+    description: 'Luxury apartment in the heart of the city with modern amenities.',
   },
   {
     id: 3,
-    homeImage: image3,
-    roomImage: image1,
-    title: 'Cozy House in San Francisco',
-    price: '$1,900,000',
-    description: 'A charming house in a quiet neighborhood.',
+    location: 'Kanpur',
+    priceRange: '₹15 Lakh - ₹25 Lakh',
+    brokerContact: '+91 7654321098',
+    description: 'Spacious house in a peaceful neighborhood with great connectivity.',
   },
   {
     id: 4,
-    homeImage: image1,
-    roomImage: image2,
-    title: 'Luxury Villa in Beverly Hills',
-    price: '$5,200,000',
-    description: 'A beautiful villa with stunning views of the city.',
+    location: 'Noida',
+    priceRange: '₹35 Lakh - ₹50 Lakh',
+    brokerContact: '+91 6543210987',
+    description: 'Modern villa with garden space in a gated community.',
   },
   {
     id: 5,
-    homeImage: image2,
-    roomImage: image3,
-    title: 'Modern Apartment in New York',
-    price: '$2,300,000',
-    description: 'A sleek and modern apartment in the heart of the city.',
+    location: 'Delhi',
+    priceRange: '₹45 Lakh - ₹70 Lakh',
+    brokerContact: '+91 5432109876',
+    description: 'Penthouse in the city center with panoramic views.',
   },
   {
     id: 6,
-    homeImage: image3,
-    roomImage: image1,
-    title: 'Cozy House in San Francisco',
-    price: '$1,900,000',
-    description: 'A charming house in a quiet neighborhood.',
+    location: 'Agra',
+    priceRange: '₹10 Lakh - ₹15 Lakh',
+    brokerContact: '+91 4321098765',
+    description: 'Affordable residential plot near the main highway.',
   },
   // Add more properties here...
 ];
 
 const PropertiesPage = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // Breakpoint for column count based on screen size
+  const columns = useBreakpointValue({ base: 1, md: 2, lg: 3 });
+
   return (
-    <Box p={6} bg="gray.50" minH="100vh">
-      <Center mb={8}>
-        <Button colorScheme="teal" size="md" onClick={onOpen}>
-          Add Property
-        </Button>
-      </Center>
-
-      <AddProperty isOpen={isOpen} onClose={onClose} />
-
-      <Box px={'6rem'}>
-        <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={6}>
+    <Box p={{ base: 4, md: 6 }} bg="gray.50" minH="100vh">
+      <Box px={{ base: 2, md: '4rem', lg: '6rem' }}>
+        <Grid
+          templateColumns={`repeat(${columns}, 1fr)`} // Responsive columns
+          gap={6}
+        >
           {properties.map((property) => (
             <PropertyCard
               key={property.id}
-              homeImage={property.homeImage}
-              roomImage={property.roomImage}
-              title={property.title}
-              price={property.price}
+              location={property.location}
+              priceRange={property.priceRange}
+              brokerContact={property.brokerContact}
               description={property.description}
             />
           ))}
         </Grid>
       </Box>
-
     </Box>
   );
 };
-
 
 export default PropertiesPage;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Heading, Text, Stack, Image, Flex, VStack, Input, Textarea } from '@chakra-ui/react';
+import { Box, Button, Heading, Text, Stack, Image, Flex, VStack, Input, Textarea, Link as ChakraLink } from '@chakra-ui/react';
 import { motion } from 'framer-motion';  // Import motion from framer-motion for animation
 import image0 from '../Assets/real-estate-0.jpg';
 import image1 from '../Assets/real-estate-1.jpg';
@@ -10,7 +10,8 @@ import image5 from '../Assets/real-estate-5.jpg';
 import image6 from '../Assets/real-estate-6.jpg';
 import image7 from '../Assets/real-estate-7.jpg';
 import image8 from '../Assets/real-estate-8.jpg';
-import PropertyCard from '../Components/PropertyCard';
+import FeatureProperty from '../Components/FeatureProperty';
+import { Link as RouterLink } from 'react-router-dom';
 
 const MotionBox = motion(Box);  // Create motion-enabled Box component
 
@@ -44,97 +45,93 @@ const LandingPage = () => {
                     <Text fontSize="lg" color="gray.200">
                         Find the perfect property for you and your family. We provide the best properties with transparent deals and premium customer support.
                     </Text>
-                    <Button
-                        size="lg"
-                        bg="#319795"  // Teal color
-                        _hover={{ bg: '#0077B5' }}  // LinkedIn blue hover effect
-                        color="white"
-                        fontWeight="bold"
-                        px={8}
-                        py={6}
-                    >
-                        View Properties
-                    </Button>
+                    <ChakraLink as={RouterLink} to={'/properties'}>
+                        <Button
+                            size="lg"
+                            colorScheme="teal"
+                            color="white"
+                            fontWeight="bold"
+                            px={8}
+                            py={6}
+                        >
+                            View Properties
+                        </Button>
+
+                    </ChakraLink>
+
                 </VStack>
             </Flex>
 
             {/* Featured Properties Section */}
             <Box py={12} bg="gray.100">
-                <Heading textAlign="center" mb={10} fontSize="3xl" color="#0077B5" letterSpacing="wide">
+                <Heading textAlign="center" mb={10} fontSize="3xl" color={'teal'} letterSpacing="wide">
                     Featured Properties
                 </Heading>
                 <Flex justify="center" wrap="wrap" maxW="1200px" mx="auto" gap={6}>
                     {/* Add a slight hover effect to property cards */}
                     <MotionBox whileHover={{ scale: 1.05 }}>
-                        <PropertyCard
+                        <FeatureProperty
                             homeImage={image0}
-                            roomImage={image1}
-                            title="Luxury Villa in Beverly Hills"
-                            price="$5,200,000"
-                            description="A beautiful villa with stunning views of the city."
+                            title="Home & Plot in Unnao"
+                            price="₹10,00,000 - ₹25,00,000"
+                            description="A beautiful home with stunning views of the city."
                         />
                     </MotionBox>
                     <MotionBox whileHover={{ scale: 1.05 }}>
-                        <PropertyCard
+                        <FeatureProperty
                             homeImage={image1}
-                            roomImage={image2}
-                            title="Modern Apartment in New York"
-                            price="$2,300,000"
-                            description="A sleek and modern apartment in the heart of the city."
+                            title="Modern House in Chakalwansi"
+                            price="₹2,300,000"
+                            description="A sleek and modern house in the heart of the chakalwansi."
                         />
                     </MotionBox>
                     <MotionBox whileHover={{ scale: 1.05 }}>
-                        <PropertyCard
+                        <FeatureProperty
                             homeImage={image2}
-                            roomImage={image3}
-                            title="Cozy House in San Francisco"
-                            price="$1,900,000"
+                            title="Cozy House in Pooran Nagar Unnao"
+                            price="₹1,900,000"
                             description="A charming house in a quiet neighborhood."
                         />
                     </MotionBox>
                     <MotionBox whileHover={{ scale: 1.05 }}>
-                        <PropertyCard
+                        <FeatureProperty
                             homeImage={image3}
-                            roomImage={image4}
-                            title="Luxury Villa in Beverly Hills"
-                            price="$5,200,000"
+                            title="Residential Plot near Abbaspur"
+                            price="₹5,200,000"
                             description="A beautiful villa with stunning views of the city."
                         />
                     </MotionBox>
                     <MotionBox whileHover={{ scale: 1.05 }}>
-                        <PropertyCard
+                        <FeatureProperty
                             homeImage={image4}
                             roomImage={image5}
-                            title="Luxury Villa in Beverly Hills"
-                            price="$5,200,000"
-                            description="A beautiful villa with stunning views of the city."
+                            title="House in Lok Nagar"
+                            price="₹5,200,000"
+                            description="A beautiful house with stunning access of the city."
                         />
                     </MotionBox>
                     <MotionBox whileHover={{ scale: 1.05 }}>
-                        <PropertyCard
+                        <FeatureProperty
                             homeImage={image5}
-                            roomImage={image6}
-                            title="Modern Apartment in New York"
-                            price="$2,300,000"
+                            title="Modern Apartment in Civil Line Unnao"
+                            price="₹2,300,000"
                             description="A sleek and modern apartment in the heart of the city."
                         />
                     </MotionBox>
                     <MotionBox whileHover={{ scale: 1.05 }}>
-                        <PropertyCard
+                        <FeatureProperty
                             homeImage={image7}
-                            roomImage={image8}
-                            title="Cozy House in San Francisco"
-                            price="$1,900,000"
+                            title="Residential House in Bangarmau"
+                            price="₹1,900,000"
                             description="A charming house in a quiet neighborhood."
                         />
                     </MotionBox>
                     <MotionBox whileHover={{ scale: 1.05 }}>
-                        <PropertyCard
+                        <FeatureProperty
                             homeImage={image8}
-                            roomImage={image1}
-                            title="Luxury Villa in Beverly Hills"
-                            price="$5,200,000"
-                            description="A beautiful villa with stunning views of the city."
+                            title="Residential Land in Unnao"
+                            price="₹5,200,000"
+                            description="A beautiful land with stunning views of the city."
                         />
                     </MotionBox>
                 </Flex>
@@ -154,7 +151,7 @@ const LandingPage = () => {
                         />
                     </Box>
                     <Box flex="1" p={6}>
-                        <Heading as="h2" size="xl" mb={4} color="#0077B5" fontWeight="bold" letterSpacing="wide">
+                        <Heading as="h2" size="xl" mb={4} color={'teal'} fontWeight="bold" letterSpacing="wide">
                             About Us
                         </Heading>
                         <Text fontSize="lg" mb={4} color="gray.600">
@@ -162,9 +159,7 @@ const LandingPage = () => {
                         </Text>
                         <Button
                             size="md"
-                            bg="#3182CE"  // Light Blue
-                            color="white"
-                            _hover={{ bg: '#0077B5' }}
+                            colorScheme='teal'
                             fontWeight="bold"
                         >
                             Learn More
@@ -175,7 +170,7 @@ const LandingPage = () => {
 
             {/* Contact Section */}
             <Box py={12} bg="gray.100">
-                <Heading textAlign="center" mb={8} fontSize={{ base: "2xl", md: "3xl" }} color="#0077B5" letterSpacing="wide">
+                <Heading textAlign="center" mb={8} fontSize={{ base: "2xl", md: "3xl" }} color="teal" letterSpacing="wide">
                     Get in Touch
                 </Heading>
                 <Flex
@@ -228,9 +223,7 @@ const LandingPage = () => {
                         <Button
                             size="md"
                             w="100%"
-                            bg="#3182CE"  // Light Blue
-                            _hover={{ bg: '#0077B5' }}  // Hover to LinkedIn Blue
-                            color="white"
+                            colorScheme='teal'
                         >
                             Send Message
                         </Button>

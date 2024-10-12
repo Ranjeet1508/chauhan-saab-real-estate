@@ -19,7 +19,7 @@ const Navbar = () => {
     <Box bg={themeColors.primary} px={4}>
       <Flex h={16} alignItems="center" justifyContent="space-between">
         <Heading as="h1" size="lg" color="white">
-          Mr. Roomie {/* Replace with your real estate brand name */}
+          Chauhan Properties {/* Replace with your real estate brand name */}
         </Heading>
 
         <IconButton
@@ -67,18 +67,6 @@ const Navbar = () => {
             aria-current={location.pathname === "/services" ? "page" : undefined}
           >
             Services
-          </Link>
-          <Link
-            as={RouterLink}
-            to="/contact"
-            px={2}
-            py={1}
-            rounded={'md'}
-            _hover={{ bg: themeColors.accent, transition: 'background-color 0.2s' }}
-            color={location.pathname === "/contact" ? themeColors.secondary : "white"}
-            aria-current={location.pathname === "/contact" ? "page" : undefined}
-          >
-            Contact
           </Link>
           <Link
             as={RouterLink}
