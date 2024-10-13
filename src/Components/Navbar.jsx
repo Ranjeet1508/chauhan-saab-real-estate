@@ -14,16 +14,19 @@ const themeColors = {
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
-  
+
   // Check if user is logged in by checking for the presence of real-estate-token in local storage
   const isLoggedIn = Boolean(localStorage.getItem('real-estate-token'));
 
   return (
     <Box bg={themeColors.primary} px={4}>
       <Flex h={16} alignItems="center" justifyContent="space-between">
-        <Heading as="h1" size="lg" color="white">
-          Chauhan Properties {/* Replace with your real estate brand name */}
-        </Heading>
+        <Link as={RouterLink} to={'/'}>
+          <Heading as="h1" size="lg" color="white">
+            Chauhan Properties {/* Replace with your real estate brand name */}
+          </Heading>
+        </Link>
+
 
         <IconButton
           size="lg"
