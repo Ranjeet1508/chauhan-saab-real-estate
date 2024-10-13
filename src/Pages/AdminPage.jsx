@@ -17,7 +17,7 @@ const AdminPage = () => {
   const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure(); // State for EditProperty modal
   const [editingProperty, setEditingProperty] = useState(null); // State to hold the property being edited
 
-  const getPropertiesFromApi = async() => {
+  const getPropertiesFromApi = async () => {
     const response = await axios.get(`${API_BASE_URL}/property`);
     console.log(response.data);
     setProperties(response.data);
@@ -33,19 +33,23 @@ const AdminPage = () => {
     onEditOpen(); // Open the EditProperty modal
   };
 
-  // Function to handle editing submission
-  const handleEditSubmit = (editedProperty) => {
-    setProperties(
-      properties.map((property) =>
-        property.id === editedProperty.id ? editedProperty : property
-      )
-    );
-    onEditClose(); // Close the modal after editing
-  };
 
   // Function to handle deleting a property
-  const handleDelete = (id) => {
-    setProperties(properties.filter((property) => property.id !== id));
+  const handleDelete = async (id) => {
+    try {
+      let token = localStorage.getItem('real-estate-token');
+
+      let config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+
+      let response = await axios.delete(`${API_BASE_URL}/property/${id}`, config);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -65,7 +69,7 @@ const AdminPage = () => {
             key={property._id}
             property={property} // Pass the entire property object
             onEdit={() => handleEdit(property)} // Pass the edit handler
-            onDelete={() => handleDelete(property.id)} // Pass the delete handler
+            onDelete={() => handleDelete(property._id)} // Pass the delete handler
           />
         ))}
       </Grid>
@@ -76,7 +80,6 @@ const AdminPage = () => {
           isOpen={isEditOpen}
           onClose={onEditClose}
           propertyData={editingProperty} // Pass the property data to the EditProperty component
-          onEdit={handleEditSubmit} // Pass the handleEditSubmit function
         />
       )}
     </Box>

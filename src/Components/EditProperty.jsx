@@ -20,8 +20,11 @@ import {
   AlertDescription,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
-const EditProperty = ({ isOpen, onClose, propertyData, onEdit }) => {
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+const EditProperty = ({ isOpen, onClose, propertyData }) => {
   const {
     register,
     handleSubmit,
@@ -38,11 +41,26 @@ const EditProperty = ({ isOpen, onClose, propertyData, onEdit }) => {
     }
   }, [isOpen, propertyData, reset]);
 
-  const onSubmit = (data) => {
-    console.log(data); // Handle the form submission logic here
-    onEdit(data); // Pass the edited data to the onEdit function
-    setSuccessMessage('Property updated successfully!');
-    onClose(); // Close the modal after submission
+  console.log(propertyData._id);
+
+  const onSubmit = async (data) => {
+    try {
+      console.log(data);
+      let token = localStorage.getItem('real-estate-token');
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      const response = await axios.patch(`${API_BASE_URL}/property/${propertyData._id}`, data, config);
+      console.log(response.data);
+      setSuccessMessage('Property updated successfully!');
+      onClose(); // Close the modal after submission
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

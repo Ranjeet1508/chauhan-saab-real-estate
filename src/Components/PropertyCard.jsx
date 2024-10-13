@@ -5,7 +5,7 @@ import { PhoneIcon } from '@chakra-ui/icons'; // Import the phone icon
 const PropertyCard = ({ location, priceRange, brokerContact, description }) => {
     // Function to handle click and initiate a call
     const handleCall = () => {
-        window.location.href = `tel:${brokerContact}`;
+        window.location.href = `tel:+91 ${brokerContact}`;
     };
 
     return (
