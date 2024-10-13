@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Box, Image, VStack, Heading, Text } from '@chakra-ui/react';
 
 const FeatureProperty = ({ homeImage, title, price, description }) => {
-    // State to track the current image being displayed
-    const [currentImage, setCurrentImage] = useState(homeImage);
-
 
     return (
         <Box
