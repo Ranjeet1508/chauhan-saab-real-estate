@@ -26,7 +26,7 @@ import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-const AddProperty = ({ isOpen, onClose }) => {
+const AddProperty = ({ isOpen, onClose, refresh }) => {
   const {
     register,
     handleSubmit,
@@ -51,9 +51,9 @@ const AddProperty = ({ isOpen, onClose }) => {
       const response = await axios.post(`${API_BASE_URL}/property`, data, config);
       console.log(response.data); // Handle the form submission logic here
       setSuccessMessage('Property added successfully!');
-      reset();
       setTimeout(() => {
         setLoading(false); // Stop loading
+        refresh();
         onClose(); // Close the modal after submission
       }, 1500);
     } catch (error) {

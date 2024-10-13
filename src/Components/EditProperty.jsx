@@ -18,13 +18,15 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
+  Spinner,
+  Center
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-const EditProperty = ({ isOpen, onClose, propertyData }) => {
+const EditProperty = ({ isOpen, onClose, propertyData, refresh }) => {
   const {
     register,
     handleSubmit,
@@ -33,6 +35,7 @@ const EditProperty = ({ isOpen, onClose, propertyData }) => {
   } = useForm();
 
   const [successMessage, setSuccessMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Reset form with current property data when modal opens
@@ -44,6 +47,7 @@ const EditProperty = ({ isOpen, onClose, propertyData }) => {
   console.log(propertyData._id);
 
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       console.log(data);
       let token = localStorage.getItem('real-estate-token');
@@ -57,9 +61,15 @@ const EditProperty = ({ isOpen, onClose, propertyData }) => {
       const response = await axios.patch(`${API_BASE_URL}/property/${propertyData._id}`, data, config);
       console.log(response.data);
       setSuccessMessage('Property updated successfully!');
+      setTimeout(() => {
+        setLoading(false);
+        refresh();
+        onClose();
+      }, 1500)
       onClose(); // Close the modal after submission
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -77,6 +87,12 @@ const EditProperty = ({ isOpen, onClose, propertyData }) => {
                 <AlertTitle mr={2}>Success!</AlertTitle>
                 <AlertDescription>{successMessage}</AlertDescription>
               </Alert>
+            )}
+            {/* Spinner displayed when loading is true */}
+            {loading && (
+              <Center>
+                <Spinner size="xl" color="teal.500" />
+              </Center>
             )}
             <form onSubmit={handleSubmit(onSubmit)}>
               <Stack spacing={4}>

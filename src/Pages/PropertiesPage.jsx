@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Box,
   Grid,
-  Button,
-  useDisclosure,
+  Spinner,
   Center,
   useBreakpointValue
 } from '@chakra-ui/react';
@@ -15,12 +14,19 @@ import axios from 'axios';
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
 
 const PropertiesPage = () => {
-  const[properties, setProperties] = useState([]);
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getPropertiesFromApi = async () => {
-    const response = await axios.get(`${API_BASE_URL}/property`);
-    console.log(response.data);
-    setProperties(response.data);
+    setLoading(true);
+    try {
+      const response = await axios.get(`${API_BASE_URL}/property`);
+      setProperties(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -32,6 +38,13 @@ const PropertiesPage = () => {
 
   return (
     <Box p={{ base: 4, md: 6 }} bg="gray.50" minH="100vh">
+      {/* Spinner displayed when loading is true */}
+      {loading && (
+        <Center>
+          <Spinner size="xl" color="teal.500" />
+        </Center>
+      )}
+      
       <Box px={{ base: 2, md: '4rem', lg: '6rem' }}>
         <Grid
           templateColumns={`repeat(${columns}, 1fr)`} // Responsive columns

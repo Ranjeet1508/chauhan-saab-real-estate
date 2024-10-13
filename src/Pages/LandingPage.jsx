@@ -196,7 +196,7 @@ const LandingPage = () => {
                         </Text>
                         <Flex alignItems={'center'}>
                             <Text fontWeight="bold" fontSize={{ base: "md", md: "lg" }}>Phone:</Text>
-                            <Text ms={2} color="gray.500" fontSize={{ base: "sm", md: "md" }}>+1 123-456-7890</Text>
+                            <Text ms={2} color="gray.500" fontSize={{ base: "sm", md: "md" }}>+91 7860414267</Text>
                         </Flex>
                         <Flex alignItems={"center"}>
                             <Text fontWeight="bold" fontSize={{ base: "md", md: "lg" }}>Email:</Text>
@@ -204,7 +204,7 @@ const LandingPage = () => {
                         </Flex>
                         <Flex alignItems={"center"}>
                             <Text fontWeight="bold" fontSize={{ base: "md", md: "lg" }}>Address:</Text>
-                            <Text ms={2} color="gray.500" fontSize={{ base: "sm", md: "md" }}>123 Real Estate St, Beverly Hills, CA 90210</Text>
+                            <Text ms={2} color="gray.500" fontSize={{ base: "sm", md: "md" }}>Village Makhi, Unnao, UttarPradesh</Text>
                         </Flex>
                     </VStack>
 

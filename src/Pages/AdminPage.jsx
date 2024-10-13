@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Button, Center } from "@chakra-ui/react";
+import { Box, Grid, Button, Center, Spinner } from "@chakra-ui/react";
 import AdminPropertyCard from "../Components/AdminPropertyCard";
 import EditProperty from "../Components/EditProperty"; // Import the EditProperty component
 import AddProperty from "../Components/AddProperty";
@@ -16,11 +16,19 @@ const AdminPage = () => {
   const { isOpen: isAddOpen, onOpen: onAddOpen, onClose: onAddClose } = useDisclosure(); // State for AddProperty modal
   const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure(); // State for EditProperty modal
   const [editingProperty, setEditingProperty] = useState(null); // State to hold the property being edited
+  const [loading, setLoading] = useState(false);
 
   const getPropertiesFromApi = async () => {
-    const response = await axios.get(`${API_BASE_URL}/property`);
-    console.log(response.data);
-    setProperties(response.data);
+    setLoading(true);
+    try {
+      const response = await axios.get(`${API_BASE_URL}/property`);
+      console.log(response.data);
+      setProperties(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -47,18 +55,31 @@ const AdminPage = () => {
 
       let response = await axios.delete(`${API_BASE_URL}/property/${id}`, config);
       console.log(response.data);
+      getPropertiesFromApi();
     } catch (error) {
       console.log(error);
     }
   };
 
+  // Function to refresh the property list after adding or editing a property
+  const refreshProperties = () => {
+    getPropertiesFromApi();
+  };
+
   return (
     <Box p={6} bg="gray.50" minH="100vh">
+      {/* Spinner displayed when loading is true */}
+      {loading && (
+        <Center>
+          <Spinner size="xl" color="teal.500" />
+        </Center>
+      )}
+
       {/* Add Property Modal */}
-      <AddProperty isOpen={isAddOpen} onClose={onAddClose} />
+      <AddProperty isOpen={isAddOpen} onClose={onAddClose} refresh={refreshProperties} />
 
       <Center mb={8}>
-        <Button colorScheme="teal" size="md" onClick={onAddOpen}>
+        <Button hidden={loading} colorScheme="teal" size="md" onClick={onAddOpen}>
           Add Property
         </Button>
       </Center>
@@ -80,6 +101,7 @@ const AdminPage = () => {
           isOpen={isEditOpen}
           onClose={onEditClose}
           propertyData={editingProperty} // Pass the property data to the EditProperty component
+          refresh={refreshProperties}
         />
       )}
     </Box>
