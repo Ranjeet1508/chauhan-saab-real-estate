@@ -30,11 +30,11 @@ const AdminPropertyCard = ({ property, onEdit, onDelete }) => {
                 </Text>
 
                 <Text fontWeight="bold" color="teal.500">
-                    Mobile: {property.brokerContact.split(" ")[1]}
+                    Mobile: {property.brokerContact}
                 </Text>
 
                 {/* Button Container */}
-                <HStack spacing={4} mt={4}>
+                <HStack spacing={4} mb={0}>
                     {/* Edit button with edit icon */}
                     <Button
                         leftIcon={<EditIcon />} // Adds an edit icon

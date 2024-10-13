@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -23,29 +24,24 @@ const LoginPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [loading, setLoading] = useState(false); // Loading state
     const [error, setError] = useState(''); // Error state
-    const toast = useToast();
-    console.log(API_BASE_URL)
+    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         setLoading(true); // Start loading
         setError(''); // Clear previous errors
-        const {email, password} = data;
-        
+        const { email, password } = data;
+
         console.log(API_BASE_URL)
         try {
-            const response = await axios.post(`${API_BASE_URL}/auth/login`,{email, password} );
-            const data = response.data;
-            console.log(data);
+            const response = await axios.post(`${API_BASE_URL}/auth/login`, { email, password });
+            onOpen();
 
-            // You can use toast for a better UX
-            toast({
-                title: "Login Successful",
-                description: "You have successfully logged in.",
-                status: "success",
-                duration: 4000,
-                isClosable: true,
-            });
-
+            const token = response.data.token;
+            localStorage.setItem("real-estate-token", token)
+            console.log(token);
+            setTimeout(() => {
+                navigate('/admin');
+            },2000)
             // Handle further navigation or saving token, etc.
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed. Please try again.');
